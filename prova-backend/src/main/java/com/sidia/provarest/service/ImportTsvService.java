@@ -6,4 +6,6 @@ public interface ImportTsvService {
 
 	public void importTitle() throws IOException;
 
+	public void importRatings() throws IOException;
+	
 }

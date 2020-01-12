@@ -7,7 +7,11 @@ import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "Title")
@@ -37,6 +41,11 @@ public class Title implements Serializable {
 
 	@ElementCollection
 	private List<String> genres;
+
+	@OneToOne
+	@JoinColumn(name = "tconst")
+	@JsonManagedReference
+	private Ratings ratings;
 
 	public Title() {
 	}
@@ -111,6 +120,18 @@ public class Title implements Serializable {
 
 	public void setGenres(List<String> genres) {
 		this.genres = genres;
+	}
+
+	public Ratings getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(Ratings ratings) {
+		this.ratings = ratings;
+	}
+
+	public Title(String id) {
+		this.id = id;
 	}
 
 	public Title(String id, String titleType, String primaryTitle, String originalTitle, boolean adulto,

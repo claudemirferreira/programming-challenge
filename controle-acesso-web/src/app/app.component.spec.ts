@@ -16,16 +16,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'prova-frontend'`, () => {
+  it(`should have as title 'controle-acesso'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('prova-frontend');
+    expect(app.title).toEqual('controle-acesso');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('prova-frontend app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('controle-acesso app is running!');
   });
 });

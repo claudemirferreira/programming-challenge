@@ -10,13 +10,16 @@ import com.sidia.provarest.service.ImportTsvService;
 
 @SpringBootTest
 class ProvaRestApplicationTests {
-	
+
 	@Autowired
 	ImportTsvService service;
 
 	@Test
 	void contextLoads() throws IOException {
+
 		service.importTitle();
+
+		service.importRatings();
 	}
 
 }
