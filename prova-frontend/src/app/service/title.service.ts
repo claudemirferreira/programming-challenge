@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class TitleService {
 
-  startYear :number;
+  
   page :string;
   size :string;
 
@@ -29,14 +29,12 @@ export class TitleService {
     return this.http.get(`${HELP_DESK_API}/api/title/listTitle`);
   }
 
-  find(){
-    this.findByStartYear(this.startYear);
-  }
-
-  findByStartYear(startYear: number) {
+  find(startYear: number, pageIndex : number) {
     console.log('findByStartYear');
     if (startYear > 0)
       this.param = 'startYear='+startYear;
+    if (pageIndex > 0)
+      this.param = this.param + '&page='+pageIndex;
     
     return this.http.get(`${HELP_DESK_API}/api/title/findByStartYear?`+this.param);
   }

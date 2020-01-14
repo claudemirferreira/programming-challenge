@@ -4,8 +4,9 @@ import { TitleService } from 'src/app/service/title.service';
 import { ResponseApi } from 'src/app/model/response-api';
 import { Title } from 'src/app/model/title';
 
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import {PageEvent} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-title',
@@ -13,27 +14,41 @@ import {MatTableDataSource} from '@angular/material/table';
   styleUrls: ['./title.component.css']
 })
 export class TitleComponent implements OnInit {
-  displayedColumns: string[] = ['tconst', 'titleType', 'primaryTitle', 'originalTitle','startYear'];
+  displayedColumns: string[] = ['tconst', 'titleType', 'primaryTitle', 'originalTitle', 'startYear'];
+  length : number;
+  pageSize : number;
+  pageSizeOptions: number[] = [ 10];
+
+  pageIndex : number;
 
   listaGenres: [];
-  list: Title [];
+  list: Title[];
   genres: string;
-  message: {};  
+  message: {};
   classCss: {};
-  startYear : number;
+  startYear: number;
+  // MatPaginator Output
+  pageEvent: PageEvent;
 
-  constructor(private http: HttpClient
-              ,  private titleService: TitleService
-              ) { 
-      this.listGenres();
-      this.startYear = 0;
-      this.find();
-    }
-
-  ngOnInit() {     
+  constructor(private http: HttpClient, private titleService: TitleService) {
+    this.listGenres();
+    this.startYear = 0;
+    this.find();
   }
 
-  
+  ngOnInit() {
+  }
+
+  pageChange($event){
+    this.pageIndex = $event.pageIndex;
+    this.find();
+  }
+
+  setPageSizeOptions(setPageSizeOptionsInput: string) {
+    this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
+  }
+
+
   listGenres() {
     this.titleService.listGenres().subscribe((responseApi: ResponseApi) => {
       this.listaGenres = responseApi['data'];
@@ -46,10 +61,12 @@ export class TitleComponent implements OnInit {
     });
   }
 
-
   find() {
-    this.titleService.findByStartYear(this.startYear).subscribe((responseApi: ResponseApi) => {
+    this.titleService.find(this.startYear, this.pageIndex).subscribe((responseApi: ResponseApi) => {
       this.list = responseApi['content'];
+      this.length = responseApi['totalElements'];
+      this.pageSize = responseApi['totalPages'];
+
       console.log("genres = " + this.list);
     }, err => {
       this.showMessage({
@@ -58,8 +75,7 @@ export class TitleComponent implements OnInit {
       });
     });
   }
-  
-  
+
   private showMessage(message: { type: string, text: string }): void {
     this.message = message;
     this.buildClasses(message.type);
