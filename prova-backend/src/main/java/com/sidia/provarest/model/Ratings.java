@@ -2,7 +2,7 @@ package com.sidia.provarest.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -21,12 +22,10 @@ public class Ratings implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
 	private Integer id;
 
-	@OneToOne
-	@JoinColumn(name = "tconst")
 	@JsonManagedReference
+	@OneToOne(cascade = CascadeType.ALL)
 	private Title title;
 
 	private float averageRating;
@@ -65,11 +64,18 @@ public class Ratings implements Serializable {
 		this.numVotes = numVotes;
 	}
 
-	public Ratings(Integer id, String tconst, float averageRating, Integer numVotes) {
-		this.id = id;
+	public Ratings() {
+	}
+
+	public Ratings(String tconst, float averageRating, Integer numVotes) {
 		this.title = new Title(tconst);
 		this.averageRating = averageRating;
 		this.numVotes = numVotes;
+	}
+
+	public String toString() {
+
+		return "\n id:" + id + "\n tconst:" + title.getTconst() + "\n averageRating:" + averageRating + "\n numVotes:" + numVotes;
 	}
 
 }

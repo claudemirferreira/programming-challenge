@@ -19,7 +19,9 @@ class ProvaRestApplicationTests {
 
 		service.importTitle();
 
-		service.importRatings();
+		//service.importRatings();
+		
+		//service.importName();
 	}
 
 }

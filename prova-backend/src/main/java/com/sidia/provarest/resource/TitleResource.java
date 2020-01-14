@@ -10,23 +10,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.sidia.provarest.model.Title;
 import com.sidia.provarest.response.Response;
 import com.sidia.provarest.service.TitleService;
 
 @RestController
-@RequestMapping("/prova/api/")
+@RequestMapping("/api/title/")
 @CrossOrigin(origins = "*")
-public class ProvaResource {
+public class TitleResource {
 
 	@Autowired
 	private TitleService service;
 
-	@GetMapping()
-	public ResponseEntity<Response<List<Title>>> listAll() {
-		Response<List<Title>> response = new Response<List<Title>>();
+	@GetMapping("listGenres")
+	public ResponseEntity<Response<List<String>>> listGenres() {
+		Response<List<String>> response = new Response<List<String>>();
 		try {
+			List<String> list = service.listGenres();
 
+			response.setData(list);
 		} catch (DuplicateKeyException dE) {
 			response.getErrors().add("xxxxxx !");
 			return ResponseEntity.badRequest().body(response);

@@ -33,10 +33,11 @@ import { ListUsuarioComponent } from './components/list-usuario/list-usuario.com
 import { FormUsuarioComponent } from './components/list-usuario/form-usuario/form-usuario.component';
 import { TitleComponent } from './components/title/title.component';
 import { ListTitleComponent } from './components/list-title/list-title.component';
+import { TitleService } from './service/title.service';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'form-usuario', component: FormUsuarioComponent },
+  { path: 'title', component: TitleComponent },
   { path: 'list-usuario', component: ListUsuarioComponent }
 ];
 

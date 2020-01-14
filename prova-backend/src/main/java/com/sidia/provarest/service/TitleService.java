@@ -6,6 +6,8 @@ import com.sidia.provarest.model.Title;
 
 public interface TitleService {
 
-	public List<Title> listAll();
+	public void saveAll(List<Title> lista);
+	
+	public List<String> listGenres();
 
 }

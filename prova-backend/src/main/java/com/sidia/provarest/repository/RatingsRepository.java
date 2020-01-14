@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.sidia.provarest.model.Ratings;
 
-public interface RatingsRepository extends JpaRepository<Ratings, String> {
+public interface RatingsRepository extends JpaRepository<Ratings, Integer> {
 
 }

@@ -3,14 +3,17 @@ package com.sidia.provarest.model;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -20,8 +23,8 @@ public class Title implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "id", length = 12, nullable = false)
-	private String id;
+	@Column(name = "tconst", length = 12, nullable = false)
+	private String tconst;
 
 	private String titleType;
 
@@ -42,20 +45,19 @@ public class Title implements Serializable {
 	@ElementCollection
 	private List<String> genres;
 
-	@OneToOne
-	@JoinColumn(name = "tconst")
-	@JsonManagedReference
+	@OneToOne(mappedBy = "title")
+	@JsonBackReference
 	private Ratings ratings;
 
 	public Title() {
 	}
 
-	public String getId() {
-		return id;
+	public String getTconst() {
+		return tconst;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setTconst(String tconst) {
+		this.tconst = tconst;
 	}
 
 	public String getTitleType() {
@@ -130,13 +132,13 @@ public class Title implements Serializable {
 		this.ratings = ratings;
 	}
 
-	public Title(String id) {
-		this.id = id;
+	public Title(String tconst) {
+		this.tconst = tconst;
 	}
 
-	public Title(String id, String titleType, String primaryTitle, String originalTitle, boolean adulto,
+	public Title(String tconst, String titleType, String primaryTitle, String originalTitle, boolean adulto,
 			String startYear, String endYear, String runtimeMinutes, List<String> genres) {
-		this.id = id;
+		this.tconst = tconst;
 		this.titleType = titleType;
 		this.primaryTitle = primaryTitle;
 		this.originalTitle = originalTitle;
@@ -148,7 +150,7 @@ public class Title implements Serializable {
 	}
 
 	public String toString() {
-		return "\n id:" + id + "\n titleType:" + titleType + "\n primaryTitle:" + primaryTitle + "\n adulto:" + adulto
+		return "\n tconst:" + tconst + "\n titleType:" + titleType + "\n primaryTitle:" + primaryTitle + "\n adulto:" + adulto
 				+ "\n startYear:" + startYear + "\n endYear:" + endYear + "\n runtimeMinutes:" + runtimeMinutes
 				+ "\n genres:" + genres;
 	}
