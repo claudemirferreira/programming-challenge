@@ -1,6 +1,6 @@
 export class Title {
 
-    public id: string;
+    public tconst: string;
 
 	public titleType: string;
 

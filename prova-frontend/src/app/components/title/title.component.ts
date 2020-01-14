@@ -13,23 +13,24 @@ import {MatTableDataSource} from '@angular/material/table';
   styleUrls: ['./title.component.css']
 })
 export class TitleComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'titleType', 'primaryTitle', 'originalTitle'];
+  displayedColumns: string[] = ['tconst', 'titleType', 'primaryTitle', 'originalTitle','startYear'];
 
   listaGenres: [];
   list: Title [];
   genres: string;
   message: {};  
   classCss: {};
+  startYear : number;
 
   constructor(private http: HttpClient
               ,  private titleService: TitleService
               ) { 
       this.listGenres();
-      this.listTitle();
+      this.startYear = 0;
+      this.find();
     }
 
-  ngOnInit() { 
-    
+  ngOnInit() {     
   }
 
   
@@ -45,9 +46,10 @@ export class TitleComponent implements OnInit {
     });
   }
 
-  listTitle() {
-    this.titleService.listTitle().subscribe((responseApi: ResponseApi) => {
-      this.list = responseApi['data'];
+
+  find() {
+    this.titleService.findByStartYear(this.startYear).subscribe((responseApi: ResponseApi) => {
+      this.list = responseApi['content'];
       console.log("genres = " + this.list);
     }, err => {
       this.showMessage({
