@@ -18,4 +18,9 @@ export class TitleService {
     return this.http.get(`${HELP_DESK_API}/api/title/listGenres`);
   }
 
+  listTitle() {
+    console.log('listTitle');
+    return this.http.get(`${HELP_DESK_API}/api/title/listTitle`);
+  }
+
 }

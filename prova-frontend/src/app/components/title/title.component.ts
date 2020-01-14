@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TitleService } from 'src/app/service/title.service';
 import { ResponseApi } from 'src/app/model/response-api';
+import { Title } from 'src/app/model/title';
+
+import {MatPaginator} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
 
 @Component({
   selector: 'app-title',
@@ -9,7 +13,10 @@ import { ResponseApi } from 'src/app/model/response-api';
   styleUrls: ['./title.component.css']
 })
 export class TitleComponent implements OnInit {
+  displayedColumns: string[] = ['id', 'titleType', 'primaryTitle', 'originalTitle'];
+
   listaGenres: [];
+  list: Title [];
   genres: string;
   message: {};  
   classCss: {};
@@ -18,6 +25,7 @@ export class TitleComponent implements OnInit {
               ,  private titleService: TitleService
               ) { 
       this.listGenres();
+      this.listTitle();
     }
 
   ngOnInit() { 
@@ -29,6 +37,18 @@ export class TitleComponent implements OnInit {
     this.titleService.listGenres().subscribe((responseApi: ResponseApi) => {
       this.listaGenres = responseApi['data'];
       console.log("genres = " + this.listaGenres);
+    }, err => {
+      this.showMessage({
+        type: 'error',
+        text: err['error']['errors'][0]
+      });
+    });
+  }
+
+  listTitle() {
+    this.titleService.listTitle().subscribe((responseApi: ResponseApi) => {
+      this.list = responseApi['data'];
+      console.log("genres = " + this.list);
     }, err => {
       this.showMessage({
         type: 'error',

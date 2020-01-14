@@ -24,4 +24,38 @@
             
         </mat-card-actions>
     </mat-card>
+
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="list">
+      
+          <!-- Position Column -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> No. </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
+      
+          <!-- Name Column -->
+          <ng-container matColumnDef="titleType">
+            <th mat-header-cell *matHeaderCellDef> titleType </th>
+            <td mat-cell *matCellDef="let element"> {{element.titleType}} </td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="primaryTitle">
+            <th mat-header-cell *matHeaderCellDef> primaryTitle </th>
+            <td mat-cell *matCellDef="let element"> {{element.primaryTitle}} </td>
+          </ng-container>
+      
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="originalTitle">
+            <th mat-header-cell *matHeaderCellDef> originalTitle </th>
+            <td mat-cell *matCellDef="let element"> {{element.originalTitle}} </td>
+          </ng-container>
+      
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+      </div>
 </div>
