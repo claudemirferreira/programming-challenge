@@ -14,7 +14,7 @@ import {PageEvent} from '@angular/material/paginator';
   styleUrls: ['./title.component.css']
 })
 export class TitleComponent implements OnInit {
-  displayedColumns: string[] = ['tconst', 'titleType', 'primaryTitle', 'originalTitle', 'startYear'];
+  displayedColumns: string[] = ['tconst', 'titleType', 'primaryTitle', 'originalTitle', 'startYear','averageRating'];
   length : number;
   pageSize : number;
   pageSizeOptions: number[] = [ 10];
@@ -64,6 +64,8 @@ export class TitleComponent implements OnInit {
   find() {
     this.titleService.find(this.startYear, this.pageIndex).subscribe((responseApi: ResponseApi) => {
       this.list = responseApi['content'];
+      
+      console.log("title = " + JSON.stringify( this.list));
       this.length = responseApi['totalElements'];
       this.pageSize = responseApi['totalPages'];
 

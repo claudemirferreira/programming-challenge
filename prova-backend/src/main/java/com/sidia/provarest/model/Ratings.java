@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -24,8 +23,8 @@ public class Ratings implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
-	@JsonManagedReference
 	@OneToOne(cascade = CascadeType.ALL)
+	@JsonBackReference
 	private Title title;
 
 	private float averageRating;
@@ -75,7 +74,8 @@ public class Ratings implements Serializable {
 
 	public String toString() {
 
-		return "\n id:" + id + "\n tconst:" + title.getTconst() + "\n averageRating:" + averageRating + "\n numVotes:" + numVotes;
+		return "\n id:" + id + "\n tconst:" + title.getTconst() + "\n averageRating:" + averageRating + "\n numVotes:"
+				+ numVotes;
 	}
 
 }

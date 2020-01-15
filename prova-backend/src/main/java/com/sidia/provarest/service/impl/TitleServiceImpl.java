@@ -39,4 +39,16 @@ public class TitleServiceImpl implements TitleService {
 		return rep.findAll(pageRequest);
 	}
 
+	@Override
+	public Page<Title> findTitleRatings(int page, int size) {
+		PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.ASC, "startYear");
+		return rep.findTitleRatings(pageRequest);
+	}
+
+	@Override
+	public Page<Title> findTitleRatingsForYear(String startYear, int page, int size) {
+		PageRequest pageRequest = PageRequest.of(page, size, Sort.Direction.ASC, "startYear");
+		return rep.findTitleRatingsForYear(startYear, pageRequest);
+	}
+
 }

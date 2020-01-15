@@ -3,7 +3,6 @@ package com.sidia.provarest.resource;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -36,26 +35,25 @@ public class TitleResource {
 		}
 		return ResponseEntity.ok(response);
 	}
-	
+
 	@GetMapping("findByStartYear")
-    public Page<Title> search(
-            @RequestParam(
-            		value = "startYear",
-                    required = false,
-                    defaultValue = "0" ) Integer startYear,
-            @RequestParam(
-                    value = "page",
-                    required = false,
-                    defaultValue = "0") int page,
-            @RequestParam(
-                    value = "size",
-                    required = false,
-                    defaultValue = "10") int size) {
-		
-		if (startYear == 0)		
-			return service.findAll(page, size);
-		else 
-			return service.findByStartYear( startYear+"", page, size);
-			
-    }
+	public Page<Title> search(
+			@RequestParam(value = "startYear", required = false, defaultValue = "0") Integer startYear,
+			@RequestParam(value = "page", required = false, defaultValue = "0") int page,
+			@RequestParam(value = "size", required = false, defaultValue = "10") int size) {
+
+		if (startYear == 0)
+			return service.findTitleRatings(page, size);
+		else
+			return service.findTitleRatingsForYear(startYear + "", page, size);
+
+	}
+
+	@GetMapping("findTitleRatings")
+	public Page<Title> findTitleRatings(@RequestParam(value = "page", required = false, defaultValue = "0") int page,
+			@RequestParam(value = "size", required = false, defaultValue = "10") int size) {
+		Page<Title> list = service.findTitleRatings(page, size);
+		return list;
+
+	}
 }

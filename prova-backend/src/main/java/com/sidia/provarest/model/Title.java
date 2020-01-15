@@ -45,8 +45,8 @@ public class Title implements Serializable {
 	@ElementCollection
 	private List<String> genres;
 
-	@OneToOne(mappedBy = "title")
-	@JsonBackReference
+	@OneToOne(mappedBy = "title", fetch = FetchType.EAGER)
+	@JsonManagedReference
 	private Ratings ratings;
 
 	public Title() {
