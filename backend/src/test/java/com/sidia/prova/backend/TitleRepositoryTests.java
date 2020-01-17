@@ -16,7 +16,7 @@ class TitleRepositoryTests {
 	@Autowired
 	TitleRepository rep;
 
-	@Test
+	//@Test
 	void contextLoads() {
 
 		List<Title> list = new ArrayList<Title>();

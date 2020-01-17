@@ -15,7 +15,7 @@ class RatingsRepositoryTests {
 	@Autowired
 	RatingsRepository rep;
 
-	@Test
+	//@Test
 	void contextLoads() {
 		
 		rep.saveAll(Arrays.asList(

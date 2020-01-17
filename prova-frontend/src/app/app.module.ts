@@ -28,8 +28,8 @@ import {
   MatCardModule,
   MatProgressSpinnerModule
 } from '@angular/material';
+
 import { TitleComponent } from './components/title/title.component';
-import { TitleService } from './service/title.service';
 import { ListMoviesComponent } from './components/list-movies/list-movies.component';
 
 const appRoutes: Routes = [

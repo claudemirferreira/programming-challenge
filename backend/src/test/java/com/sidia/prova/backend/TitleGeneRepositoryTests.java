@@ -15,7 +15,7 @@ class TitleGeneRepositoryTests {
 	@Autowired
 	GenreRepository rep;
 
-	@Test
+	//@Test
 	void contextLoads() {
 
 		rep.saveAll(Arrays.asList(new Genre(null, "Documentary"), new Genre(null, "Short"),
