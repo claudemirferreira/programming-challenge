@@ -1,11 +1,59 @@
-<p>list-movies works!</p>
+<div class="mat-app-background basic-container">
+
+  <mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>List the top 10 movies (in terms of rating) filtered by year. If no year is given as parameter,
+        the API should list all movies with pagination;</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+      
+      <mat-form-field>
+        <mat-select placeholder="Genre" [(ngModel)]="genre" (selectionChange)="pesquisar()">
+            <mat-option *ngFor="let genre of listGenre" [value]="genre">
+                {{genre.id}} - {{genre.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    </mat-card-content>
+
+  </mat-card>
+  
 
 
-<mat-form-field>
-    <mat-label>Favorite food</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let food of foods" [value]="food.value">
-        {{food.viewValue}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="list">
+
+      <ng-container matColumnDef="tconst">
+        <th mat-header-cell *matHeaderCellDef> tconst </th>
+        <td mat-cell *matCellDef="let element"> {{element.tconst}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="titleType">
+        <th mat-header-cell *matHeaderCellDef> titleType </th>
+        <td mat-cell *matCellDef="let element"> {{element.titleType}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="primaryTitle">
+        <th mat-header-cell *matHeaderCellDef> primaryTitle </th>
+        <td mat-cell *matCellDef="let element"> {{element.primaryTitle}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="originalTitle">
+        <th mat-header-cell *matHeaderCellDef> originalTitle </th>
+        <td mat-cell *matCellDef="let element"> {{element.originalTitle}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="startYear">
+        <th mat-header-cell *matHeaderCellDef> startYear </th>
+        <td mat-cell *matCellDef="let element"> {{element.startYear}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+  </div>
+</div>

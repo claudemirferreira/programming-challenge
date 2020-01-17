@@ -7,5 +7,7 @@ import com.sidia.prova.backend.model.Genre;
 public interface GenreService {
 
 	List<Genre> findAll();
+	
+	Genre getOne(Integer id);
 
 }

@@ -20,4 +20,9 @@ public class GenreServiceImpl implements GenreService {
 		return rep.findAll();
 	}
 
+	@Override
+	public Genre getOne(Integer id) {
+		return rep.getOne(id);
+	}
+
 }

@@ -1,28 +1,13 @@
 package com.sidia.prova.backend.dto;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.sidia.prova.backend.model.Ratings;
 import com.sidia.prova.backend.model.Title;
 
-public class TitleDTO implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class TitleDTO {
 
 	private String tconst;
 
@@ -34,13 +19,13 @@ public class TitleDTO implements Serializable {
 
 	private boolean adulto;
 
+	@Column(length = 4)
 	private String startYear;
 
+	@Column(length = 4)
 	private String endYear;
 
 	private String runtimeMinutes;
-
-	private Ratings ratings;
 
 	public TitleDTO() {
 	}
@@ -109,34 +94,6 @@ public class TitleDTO implements Serializable {
 		this.runtimeMinutes = runtimeMinutes;
 	}
 
-	public Ratings getRatings() {
-		return ratings;
-	}
-
-	public void setRatings(Ratings ratings) {
-		this.ratings = ratings;
-	}
-
-	public static TitleDTO toDTO(Title o) {
-		return new TitleDTO(o.getTconst(), 
-				o.getTitleType(), 
-				o.getPrimaryTitle(), 
-				o.getOriginalTitle(), 
-				o.isAdulto(), 
-				o.getStartYear(), 
-				o.getEndYear(), 
-				o.getRuntimeMinutes()
-				);
-	}
-	
-	public static List<TitleDTO> toDTO(List<Title> list) {	
-		List<TitleDTO> listDTO = new ArrayList<TitleDTO>();
-		for (Title o : list) {
-			listDTO.add(TitleDTO.toDTO(o));
-		}
-		return listDTO;
-	}
-
 	public TitleDTO(String tconst, String titleType, String primaryTitle, String originalTitle, boolean adulto,
 			String startYear, String endYear, String runtimeMinutes) {
 		this.tconst = tconst;
@@ -149,10 +106,28 @@ public class TitleDTO implements Serializable {
 		this.runtimeMinutes = runtimeMinutes;
 	}
 
-	public String toString() {
-		return "\n tconst:" + tconst + "\n titleType:" + titleType + "\n primaryTitle:" + primaryTitle + "\n adulto:"
-				+ adulto + "\n startYear:" + startYear + "\n endYear:" + endYear + "\n runtimeMinutes:"
-				+ runtimeMinutes;
+	public static TitleDTO toDTO(Title o) {
+		TitleDTO dto = new TitleDTO();
+		dto.tconst = o.getTconst();
+		dto.titleType = o.getTitleType();
+		dto.primaryTitle = o.getPrimaryTitle();
+		dto.originalTitle = o.getOriginalTitle();
+		dto.adulto = o.isAdulto();
+		dto.startYear = o.getStartYear();
+		dto.endYear = o.getEndYear();
+		dto.runtimeMinutes = o.getRuntimeMinutes();
+
+		return dto;
+	}
+
+	public static List<TitleDTO> toDTO(List<Title> list) {
+		List<TitleDTO> dtos = new ArrayList<TitleDTO>();
+		
+		for (Title o : list) {
+			dtos.add(TitleDTO.toDTO(o));
+		}
+		
+		return dtos;
 	}
 
 }

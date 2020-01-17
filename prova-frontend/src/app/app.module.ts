@@ -6,7 +6,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
 
 import {
   MatButtonModule,
@@ -29,27 +28,19 @@ import {
   MatCardModule,
   MatProgressSpinnerModule
 } from '@angular/material';
-import { ListUsuarioComponent } from './components/list-usuario/list-usuario.component';
-import { FormUsuarioComponent } from './components/list-usuario/form-usuario/form-usuario.component';
 import { TitleComponent } from './components/title/title.component';
-import { ListTitleComponent } from './components/list-title/list-title.component';
 import { TitleService } from './service/title.service';
 import { ListMoviesComponent } from './components/list-movies/list-movies.component';
 
 const appRoutes: Routes = [
-  { path: 'login', component: LoginComponent },
   { path: 'title', component: TitleComponent },
-  { path: 'list-usuario', component: ListUsuarioComponent }
+  { path: 'list-movies', component: ListMoviesComponent }
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    ListUsuarioComponent,
-    FormUsuarioComponent,
     TitleComponent,
-    ListTitleComponent,
     ListMoviesComponent
   ],
   imports: [

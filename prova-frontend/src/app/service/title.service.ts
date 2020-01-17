@@ -39,4 +39,10 @@ export class TitleService {
     return this.http.get(`${HELP_DESK_API}/api/title/findByStartYear?`+this.param);
   }
 
+  findTitleGenre(id : number) {
+    console.log('findTitleGenre');
+    return this.http.get(`${HELP_DESK_API}/api/title/findTitleGenre/`+id);
+  }
+
+
 }

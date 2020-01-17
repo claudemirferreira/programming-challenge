@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 
+import com.sidia.prova.backend.dto.TitleDTO;
 import com.sidia.prova.backend.model.Title;
 
 public interface TitleService {
@@ -17,5 +18,7 @@ public interface TitleService {
 	public Page<Title> findTitleRatings(int page, int size);
 
 	public Page<Title> findTitleRatingsForYear(String startYear, int page, int size);
+	
+	public List<TitleDTO> findTitleGenre(Integer id);
 
 }

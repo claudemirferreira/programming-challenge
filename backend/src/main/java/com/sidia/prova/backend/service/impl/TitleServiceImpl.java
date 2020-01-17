@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.sidia.prova.backend.dto.TitleDTO;
 import com.sidia.prova.backend.model.Title;
+import com.sidia.prova.backend.repository.GenreRepository;
 import com.sidia.prova.backend.repository.TitleRepository;
 import com.sidia.prova.backend.service.TitleService;
 
@@ -20,6 +21,9 @@ public class TitleServiceImpl implements TitleService {
 
 	@Autowired
 	private TitleRepository rep;
+	
+	@Autowired
+	private GenreRepository genreRepository;
 
 	@Override
 	@Async
@@ -49,6 +53,10 @@ public class TitleServiceImpl implements TitleService {
 		Page<Title> list = rep.findTitleRatingsForYear(startYear, pageRequest);
 		
 		return list;
+	}
+	
+	public List<TitleDTO> findTitleGenre(Integer id){
+		return TitleDTO.toDTO(genreRepository.getOne(id).getTitles());
 	}
 
 }
