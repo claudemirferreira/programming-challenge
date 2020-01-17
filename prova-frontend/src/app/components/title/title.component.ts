@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TitleService } from 'src/app/service/title.service';
+import { GenreService } from 'src/app/service/genre.service';
 import { ResponseApi } from 'src/app/model/response-api';
 import { Title } from 'src/app/model/title';
 
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import {PageEvent} from '@angular/material/paginator';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-title',
@@ -14,12 +13,15 @@ import {PageEvent} from '@angular/material/paginator';
   styleUrls: ['./title.component.css']
 })
 export class TitleComponent implements OnInit {
-  displayedColumns: string[] = ['tconst', 'titleType', 'primaryTitle', 'originalTitle', 'startYear','averageRating'];
-  length : number;
-  pageSize : number;
-  pageSizeOptions: number[] = [ 10];
+  displayedColumns: string[] = ['tconst', 'titleType', 'primaryTitle', 'originalTitle', 'startYear', 'averageRating'];
+  totalElements: number;
+  pageSize: number;  
+  size: number;
+  pageSizeOptions: number[] = [10];
 
-  pageIndex : number;
+  page : any;
+
+  pageIndex: number;
 
   listaGenres: [];
   list: Title[];
@@ -27,19 +29,20 @@ export class TitleComponent implements OnInit {
   message: {};
   classCss: {};
   startYear: number;
-  // MatPaginator Output
   pageEvent: PageEvent;
 
-  constructor(private http: HttpClient, private titleService: TitleService) {
-    this.listGenres();
-    this.startYear = 0;
+  constructor(private http: HttpClient, private titleService: TitleService
+    , private genreService: GenreService) {
+      this.startYear = 0;
+    this.pageIndex = 0;
     this.find();
   }
 
-  ngOnInit() {
+  ngOnInit() {    
+    
   }
 
-  pageChange($event){
+  pageChange($event) {
     this.pageIndex = $event.pageIndex;
     this.find();
   }
@@ -48,28 +51,26 @@ export class TitleComponent implements OnInit {
     this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
   }
 
-
-  listGenres() {
-    this.titleService.listGenres().subscribe((responseApi: ResponseApi) => {
-      this.listaGenres = responseApi['data'];
-      console.log("genres = " + this.listaGenres);
-    }, err => {
-      this.showMessage({
-        type: 'error',
-        text: err['error']['errors'][0]
-      });
-    });
+  pesquisar(){
+    this.pageIndex = 0;
+    this.find();
   }
 
   find() {
     this.titleService.find(this.startYear, this.pageIndex).subscribe((responseApi: ResponseApi) => {
-      this.list = responseApi['content'];
-      
-      console.log("title = " + JSON.stringify( this.list));
-      this.length = responseApi['totalElements'];
-      this.pageSize = responseApi['totalPages'];
+      this.list = responseApi['content'];      // pageable
 
-      console.log("genres = " + this.list);
+      console.log("title = " + JSON.stringify(this.list));
+      this.totalElements = responseApi['totalElements'];
+      this.pageSize = responseApi['totalPages'];      
+      this.pageIndex = responseApi['number'];    
+      this.size = responseApi['size'];
+
+      console.log('length = totalElements ='+this.totalElements);
+      console.log('pageSize = totalPages ='+this.pageSize);
+      console.log('pageIndex = number ='+this.pageIndex);
+      console.log('size ='+this.size);
+
     }, err => {
       this.showMessage({
         type: 'error',

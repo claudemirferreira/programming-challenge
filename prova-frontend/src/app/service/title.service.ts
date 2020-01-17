@@ -6,8 +6,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class TitleService {
-
-  
+ 
   page :string;
   size :string;
 
@@ -31,6 +30,7 @@ export class TitleService {
 
   find(startYear: number, pageIndex : number) {
     console.log('findByStartYear');
+    this.param = '';
     if (startYear > 0)
       this.param = 'startYear='+startYear;
     if (pageIndex > 0)

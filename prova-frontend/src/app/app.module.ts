@@ -34,6 +34,7 @@ import { FormUsuarioComponent } from './components/list-usuario/form-usuario/for
 import { TitleComponent } from './components/title/title.component';
 import { ListTitleComponent } from './components/list-title/list-title.component';
 import { TitleService } from './service/title.service';
+import { ListMoviesComponent } from './components/list-movies/list-movies.component';
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -48,7 +49,8 @@ const appRoutes: Routes = [
     ListUsuarioComponent,
     FormUsuarioComponent,
     TitleComponent,
-    ListTitleComponent
+    ListTitleComponent,
+    ListMoviesComponent
   ],
   imports: [
     RouterModule.forRoot(
